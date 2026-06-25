@@ -1,5 +1,4 @@
-name: Test Action
-
+name: test
 on:
   push:
     branches:
