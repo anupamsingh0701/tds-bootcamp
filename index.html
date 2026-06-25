@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anupam Singh | Developer Portfolio & Project Showcase</title>
+  <meta name="description" content="Showcase of data science, deep learning, and software tool projects by Anupam Singh. Includes ResNet50 classification, JSON merge conflicts, and key-value parsing.">
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="ambient-glow glow-top-left"></div>
+  <div class="ambient-glow glow-bottom-right"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <div class="logo" id="site-logo">ANUPAM SINGH</div>
+      <div style="font-size: 0.9rem; color: var(--text-secondary); font-weight: 500;">
+        IIT Madras B.S. Data Science
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1 id="main-heading">Showcase of <span>Technical Work</span></h1>
+      <p>Exploring deep learning architectures, automated config merge conflict detection, and utility processors.</p>
+    </section>
+
+    <!-- Project Selector Tabs -->
+    <div class="tabs-header" role="tablist">
+      <button class="tab-btn active" data-tab="deep-learning" role="tab" id="tab-dl">Deep Learning</button>
+      <button class="tab-btn" data-tab="merge-conflict" role="tab" id="tab-merge">Merge Conflict Analyzer</button>
+      <button class="tab-btn" data-tab="kv-parser" role="tab" id="tab-kv">Key-Value Parser</button>
+    </div>
+
+    <!-- TAB 1: DEEP LEARNING (Chest X-ray Classification) -->
+    <div class="tab-content active" id="deep-learning" role="tabpanel" aria-labelledby="tab-dl">
+      <div class="glass-card">
+        <div class="project-header">
+          <div>
+            <h2 class="project-title">Chest X-Ray Thoracic Disease Classification</h2>
+            <p style="color: var(--text-secondary); margin-top: 0.25rem;">Automating thoracic disease detection from medical X-rays using ResNet50.</p>
+          </div>
+          <span class="project-tag purple">Deep Learning</span>
+        </div>
+
+        <div class="grid-cols-2" style="margin-bottom: 2.5rem;">
+          <div>
+            <h3 style="margin-bottom: 1rem;">Project Overview</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+              Developed an automated classification model to detect thoracic diseases from chest X-ray images. This is a 20-class classification task complicated by imbalanced medical data and asymmetric misclassification costs (where missing a disease carries a severe penalty of -5).
+            </p>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+              The implementation fine-tunes a pre-trained <strong>ResNet50</strong> backbone using a phased strategy, dynamic data augmentation, and Label Smoothing regularizer inside the loss function.
+            </p>
+            <div style="display: flex; gap: 1rem;">
+              <div class="metric-card" style="flex: 1;">
+                <div class="metric-value">67.62%</div>
+                <div class="metric-label">Validation Acc</div>
+              </div>
+              <div class="metric-card" style="flex: 1;">
+                <div class="metric-value">1.1647</div>
+                <div class="metric-label">Validation Loss</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 style="margin-bottom: 1rem;">Training Curves (5 Epochs)</h3>
+            <div class="chart-container">
+              <canvas id="trainingChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom: 1rem;">Architecture & Strategy</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+          A key finding was the effectiveness of a <strong>Phased Fine-Tuning</strong> approach. In the first 3 epochs, the ResNet backbone was frozen, training only the newly added linear classification head with a learning rate of 1e-3. In subsequent epochs, the entire network was unfrozen and trained at a lower learning rate of 1e-4.
+        </p>
+
+        <h3 style="margin-bottom: 1rem; margin-top: 2rem;">Experimental Results</h3>
+        <div style="overflow-x: auto; margin-bottom: 2rem;">
+          <table style="width: 100%; border-collapse: collapse; text-align: left; background: rgba(15, 23, 42, 0.4); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--card-border);">
+            <thead>
+              <tr style="background: rgba(255, 255, 255, 0.05); border-bottom: 1px solid var(--card-border);">
+                <th style="padding: 1rem;">Model / Architecture</th>
+                <th style="padding: 1rem; text-align: center;">Epochs</th>
+                <th style="padding: 1rem; text-align: center;">Min Loss</th>
+                <th style="padding: 1rem; text-align: center;">Best Val Accuracy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--card-border);">
+                <td style="padding: 1rem; font-weight: 500;">EfficientNet</td>
+                <td style="padding: 1rem; text-align: center;">5</td>
+                <td style="padding: 1rem; text-align: center;">2.2963</td>
+                <td style="padding: 1rem; text-align: center;">22.66%</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--card-border);">
+                <td style="padding: 1rem; font-weight: 500;">ResNet (Baseline)</td>
+                <td style="padding: 1rem; text-align: center;">5</td>
+                <td style="padding: 1rem; text-align: center;">2.0894</td>
+                <td style="padding: 1rem; text-align: center;">28.80%</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--card-border);">
+                <td style="padding: 1rem; font-weight: 500;">ResNet + ViT + DenseNet (Ensemble)</td>
+                <td style="padding: 1rem; text-align: center;">5</td>
+                <td style="padding: 1rem; text-align: center;">2.9130</td>
+                <td style="padding: 1rem; text-align: center;">30.85%</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--card-border);">
+                <td style="padding: 1rem; font-weight: 500;">DenseNet121</td>
+                <td style="padding: 1rem; text-align: center;">10</td>
+                <td style="padding: 1rem; text-align: center;">2.4569</td>
+                <td style="padding: 1rem; text-align: center;">31.42%</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--card-border);">
+                <td style="padding: 1rem; font-weight: 500;">Vision Transformer (ViT)</td>
+                <td style="padding: 1rem; text-align: center;">12</td>
+                <td style="padding: 1rem; text-align: center;">2.9137</td>
+                <td style="padding: 1rem; text-align: center;">35.46%</td>
+              </tr>
+              <tr style="background: rgba(168, 85, 247, 0.08); border-bottom: none;">
+                <td style="padding: 1rem; font-weight: 700; color: #c084fc;">ResNet50 (Fine-Tuned)</td>
+                <td style="padding: 1rem; text-align: center; font-weight: 700; color: #c084fc;">5</td>
+                <td style="padding: 1rem; text-align: center; font-weight: 700; color: #c084fc;">1.1647</td>
+                <td style="padding: 1rem; text-align: center; font-weight: 700; color: #c084fc;">67.62%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-bottom: 1rem;">Core PyTorch Snippet</h3>
+        <pre><code class="language-python"># Fine-Tuning Strategy: Unfreezing layers dynamically
+model = models.resnet50(pretrained=True)
+
+# Freeze backbone inicialmente
+for param in model.parameters():
+    param.requires_grad = False
+
+# Substituir o classificador final
+model.fc = nn.Linear(model.fc.in_features, CONFIG["NUM_CLASSES"])
+model = model.to(CONFIG["DEVICE"])
+
+# Unfreeze backbone posterior a 3 épocas
+if epoch == 3:
+    for param in model.parameters():
+        param.requires_grad = True
+    optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)</code></pre>
+      </div>
+    </div>
+
+    <!-- TAB 2: MERGE CONFLICT ANALYZER -->
+    <div class="tab-content" id="merge-conflict" role="tabpanel" aria-labelledby="tab-merge">
+      <div class="glass-card">
+        <div class="project-header">
+          <div>
+            <h2 class="project-title">Three-Way Merge Conflict Analyzer</h2>
+            <p style="color: var(--text-secondary); margin-top: 0.25rem;">Detects and counts merge conflicts in configuration files comparing branch changes against base.</p>
+          </div>
+          <span class="project-tag cyan">Config Management</span>
+        </div>
+
+        <h3 style="margin-bottom: 1rem;">Conflict Mechanics</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+          In git configurations or distributed files, a three-way merge compares two modified branches (Branch A, Branch B) with their common ancestor (Base). A conflict arises when a key is modified by both Branch A and Branch B, but their updated values are different.
+        </p>
+
+        <div class="demo-container">
+          <div class="demo-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-cyan);"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            Interactive Three-Way Merge Simulator
+          </div>
+
+          <div class="grid-cols-2" style="gap: 1.5rem;">
+            <div class="input-group">
+              <label class="input-label" for="baseJson">Base Config (Common Ancestor)</label>
+              <textarea id="baseJson" rows="5">{
+  "port": 8080,
+  "timeout": 30,
+  "debug": false,
+  "max_connections": 100
+}</textarea>
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="branchAJson">Branch A Config</label>
+              <textarea id="branchAJson" rows="5">{
+  "port": 8080,
+  "timeout": 60,
+  "debug": true,
+  "max_connections": 100
+}</textarea>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label" for="branchBJson">Branch B Config</label>
+            <textarea id="branchBJson" rows="5">{
+  "port": 8080,
+  "timeout": 90,
+  "debug": true,
+  "max_connections": 250
+}</textarea>
+          </div>
+
+          <button class="btn" id="runMergeBtn">
+            Analyze Merge Conflicts
+          </button>
+
+          <div class="result-output" id="mergeResult"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: KEY-VALUE PARSER -->
+    <div class="tab-content" id="kv-parser" role="tabpanel" aria-labelledby="tab-kv">
+      <div class="glass-card">
+        <div class="project-header">
+          <div>
+            <h2 class="project-title">Key-Value Text to JSON Processor</h2>
+            <p style="color: var(--text-secondary); margin-top: 0.25rem;">Utility tool to serialize configuration formats and compute cryptographic hashes.</p>
+          </div>
+          <span class="project-tag pink">Utility Tool</span>
+        </div>
+
+        <h3 style="margin-bottom: 1rem;">Processor Details</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+          Converts plain text configurations containing `key=value` records into structured JSON notation. It then processes the serialized output to generate a secure SHA-256 integrity hash representation.
+        </p>
+
+        <div class="demo-container">
+          <div class="demo-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-cyan);"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+            Text to JSON & Hash Generator
+          </div>
+
+          <div class="input-group">
+            <label class="input-label" for="kvInput">Key-Value Config Inputs (one pair per line)</label>
+            <textarea id="kvInput" rows="6">name=Anupam Singh
+roll=24f2008630
+role=Student
+course=Data Science Project
+status=Active</textarea>
+          </div>
+
+          <button class="btn" id="runParseBtn">
+            Convert & Compute Hash
+          </button>
+
+          <div class="result-output" id="parseResult"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profile Section -->
+    <section class="glass-card profile-section">
+      <div class="profile-img-container">
+        <div class="profile-img">AS</div>
+      </div>
+      <div class="profile-info">
+        <h3>Anupam Singh</h3>
+        <p>Student at IIT Madras, pursuing Bachelor of Science (B.S.) in Data Science and Applications.</p>
+        <p>
+          Email: <span class="email-link"><!--email_off-->24f2008630@ds.study.iitm.ac.in<!--/email_off--></span>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Anupam Singh. All rights reserved.</p>
+    <p>Contact: <!--email_off-->24f2008630@ds.study.iitm.ac.in<!--/email_off--> (obfuscated against spam crawlers)</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
